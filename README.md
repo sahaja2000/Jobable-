@@ -1,5 +1,5 @@
 # Jobable-
-"Jobable" is a job portal for the differently-abled which aims to investigate the concerns and obstacles that people with disabilities experience in obtaining work possibilities and aid them by building a disabled-friendly job portal that makes it easier for them to find job opportunities to enhance their economic independence. The major technologies used are Python, Django, SQLite, HTML, CSS, and JS.<br> 
+"Jobable" is a job portal for the differently-abled which aims to investigate the concerns and obstacles that people with disabilities experience in obtaining work possibilities and aid them by building a disabled-friendly job portal that makes it easier for them to find job opportunities and enhance their economic independence. The major technologies used are Python, Django, SQLite, HTML, CSS, and JS.<br> 
 ## Project Features
 •	<b> Save and apply for jobs</b>: Seekers can save or apply for the jobs they are interested in.<br>
 •	<b> Email verification </b> : Users can only log in to the system after being verified through their email.<br>
