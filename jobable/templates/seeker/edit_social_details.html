@@ -1,0 +1,84 @@
+{% include 'seeker/seekerHeader.html' %}
+{% include "accessibility.html" %}
+<title>Edit Profile</title>
+  <main class="signup auth">
+      <div class="container">
+        <div class="auth-left">
+          <div class="auth-image-wrapper">
+            <img
+              src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="auth-right">
+        
+          <div class="auth-form-wrapper">
+            <form action="  {% url 'edit_social_data' %}" method="post">
+            <h2>Edit social details</h2>
+              {% csrf_token %}
+            
+              <div class="form-item">
+              <h3>Facebook</h3>
+                <input
+                  type="url"
+                  class="form-input"
+                  required="true"
+                  name="facebook"
+                  placeholder="{{social_data.facebook}}"
+                  value="{{social_data.facebook}}"
+                />
+
+              </div>
+              <div class="form-item">
+              <h3>Instagram</h3>
+                <input
+                  type="url"
+                  class="form-input"
+                  name="instagram"
+                  required="true"
+                  placeholder="{{social_data.instagram}}"
+                  value="{{social_data.instagram}}"
+                />
+              </div>
+              <div class="form-item">
+              <h3>Twitter</h3>
+                <input
+                  type="url"
+                  class="form-input"
+                  required="true"
+                  name="twitter"
+                  placeholder="{{social_data.twitter}}"
+                  value="{{social_data.twitter}}"
+                />
+              </div>
+              <div class="form-item">
+              <h3>Others</h3>
+                <input
+                  type="url"
+                  class="form-input"
+                  required="true"
+                  name="others"
+                  placeholder="{{social_data.others}}"
+                  value="{{social_data.others}}"
+                />
+              </div>
+              
+              <div class="form-item">
+                <input
+                  type="submit"
+                  name="submit"
+                  class="form-button btn btn-primary"
+                  value="Submit"
+                />
+              </div>
+         
+ 
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+    {% include 'footer.html'%}
+</html>

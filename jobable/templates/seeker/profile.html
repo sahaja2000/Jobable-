@@ -1,0 +1,193 @@
+{% load static %}
+{% include 'header.html' %}
+{% include "accessibility.html" %}
+<title>Profile</title>
+<section class="profile-wrapper section-wrapper">
+        <div class="profile-top-wrapper">
+          <div class="profile-image-wrapper">
+          {% for userdata in userdata %}
+          {% if userdata.image %}
+            <img src="{{userdata.image.url}}" class="profile-image" alt="avatar" />
+          {% else %}
+            <img src="{% static "images/user.jpg" %}" class="profile-image" alt="avatar" />
+          {% endif %}
+          </div>
+          <div class="profile-image-details">
+          
+           
+            <h4>{{request.user.first_name}} {{request.user.last_name}}</h4>
+            <p class="profile-bio">
+              {{userdata.bio}}
+            </p>
+            <a  onclick="openForm()" class="changepp">change profile picture></a><br>
+            <a href="{% url 'password_change' %}" >change password></a>
+
+
+
+            <div class="form-popup" id="myForm">
+        <form
+          action="{% url 'pp_change' %}"
+          method="post"
+          enctype="multipart/form-data">
+          {% csrf_token %}
+          <label for="image">Chose a new profile picture:</label>
+          <input type="file" id="image" name="image" accept="image/*" />
+
+          <div class="btns">
+            <a href="{% url 'pp_change' %}"
+              ><button
+                type="submit"
+                name="submit"
+                class="btn btn-primary apply"
+              >
+                Change
+              </button></a
+            >
+            <button
+              type="button"
+              onclick="closeForm()"
+              style="border: none"
+            >
+             <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+          </div>
+          
+        </div>
+        <ul class="profile-info" class="profile-info-items">
+
+
+          {% if user.seekeradditionaldetails and user.seekersocialdetails %}
+              <h5 class="profile-info-title">Profile completness</h5>
+              <div id="progress">
+                <span id="percent">100%</span>
+                <div id="bar"  style="width: 100%;"></div>
+              </div>
+          {% elif user.seekeradditionaldetails or user.seekersocialdetails %}
+              <h5 class="profile-info-title">Profile completness</h5>
+              <div id="progress">
+                <span id="percent">60%</span>
+                <div id="bar"  style="width: 60%;"></div>
+              </div>
+              {% if user.seekeradditionaldetails %}
+              <h5 class="profile-info-title">Add social details to complete your profile.</h5>
+              {% else %}
+              <h5 class="profile-info-title">Add additional details to complete your profile.</h5>
+              {% endif %}
+
+          {% else %}
+              <h5 class="profile-info-title">Profile completness</h5>
+              <div id="progress">
+                <span id="percent">30%</span>
+                <div id="bar" style="width: 30%;"></div>
+              </div>
+              {% if user.seekeradditionaldetails %}
+              <h5 class="profile-info-title">Add social details to complete your profile.</h5>
+              {% else %}
+              <h5 class="profile-info-title">Add additional details to complete your profile.</h5>
+              {% endif %}
+          {% endif %}
+
+          <li class="profile-info-items">
+            <h5 class="profile-info-title">Username</h5>
+            <p class="profile-info-detail">{{request.user.username}}</p>
+          </li>
+          <li class="profile-info-items">
+            <h5 class="profile-info-title">Gender</h5>
+            <p class="profile-info-detail  profile-info-detail-cap">{{userdata.gender}}</p>
+          </li>
+          <li class="profile-info-items">
+            <h5 class="profile-info-title">Address</h5>
+            <p class="profile-info-detail  profile-info-detail-cap">{{userdata.address}}</p>
+          </li>
+          <li class="profile-info-items">
+            <h5 class="profile-info-title">Preferred Job Category</h5>
+            <p class="profile-info-detail  profile-info-detail-cap">{{userdata.preferred_job_category}}</p>
+          </li>
+          <li class="profile-info-items">
+            <h5 class="profile-info-title">Date joined</h5>
+            <p class="profile-info-detail">{{request.user.date_joined}}</p>
+          </li>
+          <li class="profile-info-items">
+            <h5 class="profile-info-title">Last Logged in</h5>
+            <p class="profile-info-detail">{{request.user.last_login}}</p>
+          </li>
+          <a href=" {% url 'edit_user_data' %} ">Edit details></a>
+        </ul>
+        
+        
+        {% for adddata in adddata %}
+        <h1>Additional details</h1>
+        <ul class="profile-info">
+          <li class="profile-info-items">
+            <h5 class="profile-info-title">University</h5>
+            <p class="profile-info-detail  profile-info-detail-cap">{{adddata.university}}</p>
+          </li>
+          <li class="profile-info-items">
+            <h5 class="profile-info-title">Qualification</h5>
+            <p class="profile-info-detail  profile-info-detail-cap">{{adddata.qualification}}</p>
+          </li>
+          <li class="profile-info-items">
+            <h5 class="profile-info-title">Skills</h5>
+            <p class="profile-info-detail  profile-info-detail-cap">{{adddata.skills}}</p>
+          </li>
+          <li class="profile-info-items">
+            <h5 class="profile-info-title">Work Experience</h5>
+            <p class="profile-info-detail  profile-info-detail-cap">{{adddata.work_experience}}</p>
+          <li class="profile-info-items">
+            <h5 class="profile-info-title">Preferred Job Category</h5>
+            <p class="profile-info-detail  profile-info-detail-cap">{{userdata.preferred_job_category}}</p>
+          </li>
+          <li class="profile-info-items">
+            <h5 class="profile-info-title">Preferred location</h5>
+            <p class="profile-info-detail  profile-info-detail-cap">{{adddata.preferred_location}}</p>
+          </li>
+          <li class="profile-info-items">
+            <h5 class="profile-info-title">Available for Work</h5>
+            <p class="profile-info-detail  profile-info-detail-cap">{{adddata.available_for}}</p>
+          </li>
+          <li class="profile-info-items">
+
+         
+           
+          </li>
+        </ul>
+    {% endfor %}
+
+          {% if user.seekeradditionaldetails%}
+              <a href="{% url 'edit_add_details' %}">Edit details></a><a href=" {% url 'remove_social' %} ">Remove details></a>
+          {% else %}
+              <a href=" {% url 'additional_details' %} ">Add Additional details></a>
+          {% endif %}
+
+        <h1>Contact details</h1>
+        <ul class="profile-info">
+        <li class="profile-info-items">
+            <h5 class="profile-info-title">Email</h5>
+            <p class="profile-info-detail">{{request.user.email}}</p>
+          </li>
+          <li class="profile-info-items">
+            <h5 class="profile-info-title">Phone number</h5>
+            <p class="profile-info-detail  profile-info-detail-cap">+977 {{userdata.contact}}</p>
+          </li>
+          {% for socialdata in socialdata %}
+          <li class="profile-info-items">
+          <a href="{{socialdata.facebook}}" target="popup"  onclick="tab.open('{{socialdata.facebook}}','name')"><i class="fab fa-facebook-square"></i></a>
+          <a href="{{socialdata.instagram}}" target="popup"  onclick="tab.open('{{socialdata.instagram}}','name')"><i class="fab fa-instagram-square"></i></a>
+          <a href="{{socialdata.twitter}}" target="popup"  onclick="tab.open('{{socialdata.twitter}}','name')"><i class="fab fa-twitter-square"></i></a>
+          <a href="{{socialdata.others}}" target="popup"  onclick="tab.open('{{socialdata.others}}','name')"><i class="fab fa-google-plus" ></i></a>
+
+    {% endfor %}
+    {% endfor %}
+              {% if user.seekersocialdetails%}
+          <a href=" {% url 'edit_social_data' %} ">Edit details></a><a href=" {% url 'remove_social' %} ">Remove details></a>
+          {% else %}
+          <a href=" {% url 'social_details' %} ">Add social details></a>
+          {% endif %}
+          </li>
+ 
+ </ul>
+ </div>
+ {% include 'footer.html'  %} 

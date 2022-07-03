@@ -1,0 +1,136 @@
+{% load static %} {% include "header.html" %}
+{% include "accessibility.html" %}
+<title>Dashboard</title>
+<main>
+  <div class="container">
+    <div class="show-avilable-wrapper">
+      <div class="hero-text">
+          <img src="{% static "images/logo.png" %}" alt="logo"/ height="60px" >
+        
+          <p class="hero-desc">
+            Jobable brings to you scientific and meticulously designed Psychometric
+            Career Assessment to discover your true potential and interest. Know
+            and understand yourself and the world of work in order to make career,
+            educational, and life decisions.
+          </p>
+          <div class="cta"  style="padding:20px;">
+            <a href="{% url 'jobs' %}"
+              ><button class="btn btn-primary">View available Jobs</button></a
+            >
+          </div>
+        </div>
+      </div>
+  </div>
+</main>
+
+<section class="jobs-wrapper section-wrapper">
+{% include 'bannerad1.html'%}
+
+  <ul class="jobs-cards">
+   <h2>Jobs specially made for you.</h2><h4>(jobs are recommended according to your preferred job category).</h4>
+  {% for job in jobs %}
+ 
+    <li class="jobs-card-wrapper">
+      <a href="{% url 'job_details_2' id=job.job_id %}"> 
+        <div class="jobs-top-category">
+         <p>{{ job.job_category }}</p>
+        </div>
+      </a>
+      <div class="jobs-card">
+        <div class="jobs-card-content">
+          <div class="jobs-card-top">
+            <i class="fas fa-search"></i>
+            <h3 class="jobs-card-title">{{ job.job_title }}</h3>
+          </div>
+          <p class="jobs-detail">
+          {{ job.job_description|truncatechars:100 }}
+          {% comment %} {{ job.job_description|truncate(50, True, '...') }} {% endcomment %}
+            
+          </p>
+        </div>
+        <ul class="jobs-card-low">
+          <li class="jobs-contact-item">
+            <h5>Email</h5>
+            <p>{{ job.job_email }}</p>
+          </li>
+          <li class="jobs-contact-item">
+            <h5>Number</h5>
+            <p>{{ job.job_phone }}</p>
+          </li>
+          <li class="jobs-contact-item">
+            <h5>Location</h5>
+            <p>{{ job.job_email }}</p>
+          </li>
+        </ul>
+      </div>
+    </li>
+    {% endfor %}
+    </ul>
+    
+  {% if records %}
+  <ul class="jobs-cards">
+   <h2>Jobs recommended by the system.
+   </H2>
+    {% for rec in records %}
+    <li class="jobs-card-wrapper">
+      <a href="{% url 'job_details_2' id=rec.job_id %}"> 
+        <div class="jobs-top-category">
+         <p>{{ rec.job_category }}</p>
+        </div>
+      </a>
+      <div class="jobs-card">
+        <div class="jobs-card-content">
+          <div class="jobs-card-top">
+            <i class="fas fa-search"></i>
+            <h3 class="jobs-card-title">{{ rec.job_title }}</h3>
+          </div>
+          <p class="jobs-detail">
+          {{ rec.job_description|truncatechars:100 }}            
+          </p>
+        </div>
+        <ul class="jobs-card-low">
+          <li class="jobs-contact-item">
+            <h5>Email</h5>
+            <p>{{ rec.job_email }}</p>
+          </li>
+          <li class="jobs-contact-item">
+            <h5>Number</h5>
+            <p>{{ rec.job_phone }}</p>
+          </li>
+          <li class="jobs-contact-item">
+            <h5>Location</h5>
+            <p>{{ rec.job_email }}</p>
+          </li>
+        </ul>
+      </div>
+    </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <h2>No recommendations</h2>
+    {% endif %}
+
+
+
+    <div class="paginator">
+      {% if jobs.has_previous %}
+        <a href="?page=1" class="pagination-action"> <i class="fas fa-angle-double-left"></i> </a>
+        <a href="?page={{jobs.previous_page_number}}" class="pagination-action"> <i class="fas fa-angle-left"></i> </a>
+      {% endif %}
+
+
+      {% for num in jobs.paginator.page_range %}
+        {%if jobs.number == num %}
+          <strong>{{ num }}</strong>
+        {% elif num > jobs.number|add:'-3' and num < jobs.number|add:'3' %}
+          {{ num }}
+        {% endif %}
+      {% endfor %}
+      {% if jobs.has_next %}
+        <a href="?page={{jobs.next_page_number}}" class="pagination-action"> <i class="fas fa-angle-right"></i> </a>
+        <a href="?page={{jobs.paginator.num_pages}}" class="pagination-action"> <i class="fas fa-angle-double-right"></i> </a>
+      {% endif %}
+    </div>
+ </section>
+ 
+{% include "footer.html" %}

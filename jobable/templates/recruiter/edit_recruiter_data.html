@@ -1,0 +1,130 @@
+{% load static %}
+<title>Edit Profile</title>
+
+  {% include 'header.html'%}
+  {% include "accessibility.html" %}
+    <main class="signup auth" >
+      <div class="container">
+        <div class="auth-left">
+          <div class="auth-image-wrapper">
+            <img
+              src="https://images.pexels.com/photos/5711921/pexels-photo-5711921.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="auth-right" style="margin-top:35px; margin-bottom:20px;>
+          <div class="auth-form-wrapper">
+            <form action="{% url 'edit_recruiter_data' %}" method="post" enctype="multipart/form-data" class="org-profile-edit-form">
+            <h2> Edit Profile</h2>
+              {% csrf_token %}
+              <div class="form-item">
+                <input
+                  type="text"
+                  class="form-input"
+                  required="true"
+                  name="first_name"
+                  placeholder="First Name"
+                  value="{{request.user.first_name}}"
+                />
+              </div>
+              <div class="form-item">
+                <input
+                  type="text"
+                  class="form-input"
+                  required="true"
+                  name="last_name"
+                  placeholder="Last Name"
+                  value="{{request.user.last_name}}"
+                />
+              </div>
+              <div class="form-item">
+                <input
+                  type="text"
+                  class="form-input"
+                  required="true"
+                  name="contact"
+                  placeholder="Contact number"
+                  value="{{rec_data.contact}}"
+                   
+                />
+              </div>
+              <div class="form-item">
+                <input
+                  type="text"
+                  class="form-input"
+                  required="true"
+                  name="address"
+                  placeholder="Company Address"
+                  value="{{rec_data.address}}"
+                />
+              </div>
+              <div class="form-item">
+                <input
+                  type="email"
+                  required="true"
+                  class="form-input"
+                  name="email"
+                  placeholder="Company Email Address"
+                  value="{{request.user.email}}"
+                />
+              </div>
+              <div class="form-item">
+                <input
+                  type="text"
+                  required="true"
+                  class="form-input"
+                  name="company_type"
+                  placeholder="Company Type"
+                  value="{{rec_data.company_type}}"
+                />
+              </div>
+              <div class="form-item">
+                <input
+                  type="text"
+                  required="true"
+                  class="form-input"
+                  name="company_name"
+                  placeholder="Company Name"
+                  value="{{rec_data.company_name}}"
+                />
+              </div>
+ 
+              <div class="form-item">
+                <input
+                  type="text"
+                  class="form-input"
+                  name="bio"
+                  required="true"
+                  placeholder="Enter Company Bio"
+                  value="{{rec_data.bio}}"
+                />
+              </div>
+              <div class="form-item">
+                <input
+                  type="text"
+                  class="form-input"
+                  name="website"
+                  required="true"
+                  placeholder="Enter Company website url"
+                  value="{{rec_data.website}}"
+                />
+              </div>
+ 
+              <div class="form-item">
+                <input
+                  type="submit"
+                  name="submit"
+                  class="form-button btn btn-primary"
+                  value="Submit"
+                />
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+  {% include 'footer.html'%}
+

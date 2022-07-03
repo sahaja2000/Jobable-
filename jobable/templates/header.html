@@ -1,0 +1,104 @@
+{% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/jobable.png'%}">
+    
+<link
+href="https://fonts.googleapis.com/icon?family=Material+Icons"
+rel="stylesheet"
+/>
+    <script defer src="{% static 'main.js' %}"></script>
+  </head>
+    <div class="container">
+      <nav class="top-nav">
+        <div class="logo">
+        <a href="{% url 'home' %}">
+           <img src="{% static "images/logo.png" %}" alt="logo"/ height="50px">
+        </a>
+        </div>
+        <ul class="nav-items">
+          {% if user.is_authenticated %}
+          {% if user.is_staff %}
+          <li class="nav-item"><a class="nav-item-link" href="{% url 'recruiter_dashboard' %}">Dashboard</a></li>
+          {% else %}
+
+          <li class="nav-item"><a class="nav-item-link" href="{% url 'seeker_dashboard' %}">Dashboard</a></li>
+          {% endif %}
+          {% else %}
+          <li class="nav-item"><a class="nav-item-link" href="{% url 'home' %}">Home</a></li>
+          {% endif %}
+
+
+
+          {% if user.is_staff %}
+          
+          {% else %}
+          <li class="nav-item"><a class="nav-item-link" href="{% url 'jobs' %}">Available Jobs</a></li>
+          {% endif %}
+          {% if user.is_authenticated %}
+
+          {% if user.is_staff %}
+          <li class="nav-item"><a class="nav-item-link" href="{% url 'jobhome' %}">Your jobs</a></li>
+          <li class="nav-item"><a class="nav-item-link" href="{% url 'applicants' %}">Applicants</a></li>
+          <li class="nav-item"><a class="nav-item-link" href="{% url 'profile' %}">Org. Profile</a></li>
+          <li class="nav-item"><a class="nav-item-link" id="myBtn" >Logout</a></li>
+          {% else %}
+          <li class="nav-item"><a class="nav-item-link" href="{% url 'saved_jobs' %}">Saved Jobs</a></li>
+          <li class="nav-item"><a class="nav-item-link" href="{% url 'appliedJobs' %}">Applied Jobs</a></li>
+          <li class="nav-item"><a class="nav-item-link" href="{% url 'profile' %}">Profile</a></li>
+          <li class="nav-item"><a class="nav-item-link" id="myBtn" >Logout</a></li>
+          {% endif %}
+          {% else %}
+          <li class="nav-item"><a class="nav-item-link" href="{% url 'login' %}">Login</a></li>
+          <li class="nav-item"><a class="nav-item-link" href="{% url 'seeker_register' %}">Signup</a></li>
+          <li class="nav-item"><a class="nav-item-link" href="{% url 'feedback' %}">Contact us</a></li>
+          {% endif %}
+          
+        </ul>
+
+      </nav>
+
+{% for message in messages %}
+<div class="popup-msg">
+  <p class="popup-msg-text">{{message}}</p>
+  <i class="fa fa-times popup-close"></i>
+</div>
+{% endfor %}
+
+
+
+
+
+
+
+
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Are you sure you want to logout?</p><a href="{% url 'logout' %}"><button class="btn btn-primary  " style="" ><i class="fas fa-sign-out-alt"></i> Logout</button></a>
+  </div>
+
+</div>
+<script>
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>

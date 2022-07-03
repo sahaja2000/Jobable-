@@ -1,0 +1,105 @@
+<title>Jobs</title>
+{% include "header.html" %}
+{% include "accessibility.html" %}
+<section class="jobs-wrapper section-wrapper">
+{% include 'bannerad.html'%}
+  <ul class="jobs-cards">
+  <h3 >Your currently active jobs.</h3>
+  {% for job in jobs %}
+  
+    <li class="jobs-card-wrapper">
+      <a href="{% url 'job_details' id=job.job_id %}"> 
+        <div class="jobs-top-category">
+         <p>{{ job.job_category }}</p>
+        </div>
+      </a>
+      <div class="jobs-card">
+        <div class="jobs-card-content">
+          <div class="jobs-card-top">
+            <i class="fas fa-search"></i>
+            <h3 class="jobs-card-title">{{ job.job_title }}</h3>
+          </div>
+          <p class="jobs-detail">
+          {{ job.job_description|truncatechars:100 }}
+      
+            
+          </p>
+        </div>
+        <ul class="jobs-card-low">
+          <li class="jobs-contact-item">
+            <h5>Email</h5>
+            <p>{{ job.job_email }}</p>
+          </li>
+          <li class="jobs-contact-item">
+            <h5>Number</h5>
+            <p>{{ job.job_phone }}</p>
+          </li>
+          <li class="jobs-contact-item">
+            <h5>Location</h5>
+            <p>{{ job.job_email }}</p>
+          </li>
+        </ul>
+      </div>
+      {% endfor %}
+    </li>
+    </section>
+    {% include "accessibility.html" %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+    <div class="cta">
+      <a href="{% url 'add_job' %}"><button class="btn btn-primary centrebtn">Add more jobs</button></a >
+    </div>
+    <div class="paginator">
+    {% if jobs.has_previous %}
+      <a href="?page=1" class="pagination-action"> <i class="fas fa-angle-double-left"></i> </a>
+      <a href="?page={{jobs.previous_page_number}}" class="pagination-action"> <i class="fas fa-angle-left"></i> </a>
+    {% endif %}
+    {% for num in jobs.paginator.page_range %}
+      {%if jobs.number == num %}
+        <strong>{{ num }}</strong>
+      {% elif num > jobs.number|add:'-3' and num < jobs.number|add:'3' %}
+        {{ num }}
+      {% endif %}
+    {% endfor %} 
+    {% if jobs.has_next %}
+      <a href="?page={{jobs.next_page_number}}" class="pagination-action"> <i class="fas fa-angle-right"></i> </a>
+      <a href="?page={{jobs.paginator.num_pages}}" class="pagination-action"> <i class="fas fa-angle-double-right"></i> </a>
+    {% endif %}
+    </div>
+
+
+    </ul>
+  </div>
+</div>
+{% include 'footer.html' %}

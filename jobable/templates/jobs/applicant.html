@@ -1,0 +1,88 @@
+<title>Applicant</title>{% include "header.html" %}
+{% include "accessibility.html" %}
+{% if jobs %}
+<h2 class="job-item-title">Applicants For  : {{ job.job }}</h2>
+<h2 class="total_applicant"> Total Applicants : {{count}}</h2>
+<section class="jobs-wrapper section-wrapper">
+{% include 'bannerad.html'%}
+  <ul class="jobs-cards">
+  {% for jobs in jobs %}
+    <li class="jobs-card-wrapper">
+        <div class="jobs-top-category">
+         <p>{{ job.job_category }}</p>
+        </div>
+      </a>
+      <div class="jobs-card">
+        <div class="jobs-card-content">
+          <div class="jobs-card-top">
+            <i class="fas fa-search"></i>
+            <h3>Name of applicant  :{{jobs.user.first_name}} {{jobs.user.last_name}}</h3>
+          </div>        
+          </p>
+        </div>
+        <ul class="jobs-card-low">
+          <li class="jobs-contact-item">
+            <h5>Email</h5>
+            <p>{{jobs.user.email}} </p>
+          </li>
+          <li class="jobs-contact-item">
+            <h5>Contact</h5>
+            <p>{{ jobs.user.seeker.contact }}</p>
+          </li>
+          <li class="jobs-contact-item">
+            <h5>Address</h5>
+            <p>{{ jobs.user.seeker.address }}</p>
+          </li>
+          <li class="jobs-contact-item">
+            <h5>CV</h5>
+            <a href="{{ jobs.usercv.url }}" target='_'>View CV</a>
+          </li>
+           <li class="jobs-contact-item">
+              <a href="{% url 'accept' job.id %}" ><button class="btn btn-primary" style="margin-bottom:5px;"> accept application</button></a>
+              <a href="{% url 'decline' job.id %}"><button class="btn btn-primary"> decline application </button></a>
+          </li>
+        </ul>
+      </div>
+      {% endfor %}
+    </li>
+ </section>
+{% else %}
+<section class="jobs-wrapper section-wrapper">
+  <ul class="jobs-cards">
+    <li class="jobs-card-wrapper">
+        <div class="jobs-top-category">
+         <p>{{ job.job_category }}</p>
+        </div>
+      </a>
+      <div class="jobs-card">
+        <div class="jobs-card-content">
+          <div class="jobs-card-top">
+            <i class="fas fa-search"></i>
+            <h3> {{job }}</h3>
+          </div>        
+          </p>
+        </div>
+        <ul class="jobs-card-low">
+         
+        </ul>
+      </div>
+     
+    </li>
+ </section>
+
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,86 @@
+{% include "header.html" %}
+{% include "accessibility.html" %}
+<title>Applicants</title>
+<section class="jobs-wrapper section-wrapper">
+
+
+<h2>Total jobs : {{job_count}}</h2>
+<h2>Total applicants : {{applicant_count}}</h2>
+
+
+
+
+{% include 'bannerad.html'%}
+  <ul class="jobs-cards">
+  {% for job in jobs %}
+    <li class="jobs-card-wrapper">
+      <a href="{% url 'applicant' job.job_id %}"> 
+        <div class="jobs-top-category">
+         <p>{{ job.job_category }}</p>
+        </div>
+      </a>
+      <div class="jobs-card">
+        <div class="jobs-card-content">
+          <div class="jobs-card-top">
+            <i class="fas fa-search"></i>
+            <h3 class="jobs-card-title">{{ job.job_title }}</h3>
+          </div>        
+          </p>
+        </div>
+        <ul class="jobs-card-low">
+          <li class="jobs-contact-item">
+            <h5>Issued Date</h5>
+            <p>{{ job.created.date }}</p>
+          </li>
+          <li class="jobs-contact-item">
+            <h5>Due Date</h5>
+            <p>{{ job.apply_until }}</p>
+          </li>
+        </ul>
+      </div>
+      {% endfor %}
+      
+            <h2>Total applicants: {{ job_applicant_count }} </h2>
+            
+          
+    </li>
+    
+
+
+
+    <div class="paginator">
+      {% if jobs.has_previous %}
+        <a href="?page=1" class="pagination-action"> <i class="fas fa-angle-double-left"></i> </a>
+        <a href="?page={{jobs.previous_page_number}}" class="pagination-action"> <i class="fas fa-angle-left"></i> </a>
+      {% endif %}
+
+
+      {% for num in jobs.paginator.page_range %}
+        {%if jobs.number == num %}
+          <strong>{{ num }}</strong>
+        {% elif num > jobs.number|add:'-3' and num < jobs.number|add:'3' %}
+          {{ num }}
+        {% endif %}
+      {% endfor %} 
+      {% if jobs.has_next %}
+        <a href="?page={{jobs.next_page_number}}" class="pagination-action"> <i class="fas fa-angle-right"></i> </a>
+        <a href="?page={{jobs.paginator.num_pages}}" class="pagination-action"> <i class="fas fa-angle-double-right"></i> </a>
+      {% endif %}
+    </div>
+ </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
